@@ -1,0 +1,44 @@
+# robots.txt untuk Kreasi Pro - Event Vendor
+# Optimized untuk SEO dan crawling efisien
+
+# Allow all search engine bots
+User-agent: *
+Allow: /
+
+# Allowed directories
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+Allow: /lib/
+
+# Disallow admin/config files
+Disallow: /config/
+Disallow: /test_security.php
+Disallow: /*.backup$
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: http://kreasiproofficial.id/sitemap.xml
+# Note: Update this URL when deploying to production
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
