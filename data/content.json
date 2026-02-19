@@ -1,0 +1,223 @@
+{
+    "site_settings": {
+        "title": "Kontraktor Event & Kontraktor Booth Profesional | Kreasi Pro - Event Vendor Terpercaya",
+        "description": "Kreasi Pro adalah kontraktor event dan event vendor profesional yang menyediakan custom booth exhibition, custom gate, custom backdrop, custom photobooth, sewa LED screen, videotron, multimedia, dan perlengkapan event lengkap. Layanan terpercaya untuk event production Anda.",
+        "keywords": "kontraktor event, kontraktor booth, event vendor, custom booth exhibition, sewa alat event, sewa LED screen, kontraktor exhibition booth, event production, booth exhibition, sewa videotron, sewa TV plasma, sewa multimedia, kontraktor pameran, booth pameran, event organizer, sewa backdrop, sewa partisi, sewa peralatan event, jasa event, vendor event jakarta",
+        "author": "Kreasi Pro Official"
+    },
+    "contact_info": {
+        "whatsapp": "6282298074293",
+        "email": "info@kreasiproofficial.com",
+        "address": "Jl. Musyawarah No.84, Serua, Kec. Ciputat, Kota Tangerang Selatan, Banten 15414",
+        "maps_link": "https:\/\/maps.google.com\/?q=Jl.+Musyawarah+No.84,+Serua,+Kec.+Ciputat,+Kota+Tangerang+Selatan,+Banten+15414"
+    },
+    "social_media": {
+        "instagram": "https:\/\/www.instagram.com\/kreasipro.id",
+        "youtube": "https:\/\/www.youtube.com\/@kreasiproofficial",
+        "facebook": "",
+        "tiktok": ""
+    },
+    "hero_section": {
+        "sub_headline": {
+            "title": "Kontraktor Event & Custom Booth Exhibition Profesional - Wujudkan Event Impian Anda Bersama Kami",
+            "text": "Spesialis custom booth exhibition, custom backdrop, custom gate, dan custom photobooth untuk pameran, konferensi, wedding, hingga event berskala besar. Kami siap mewujudkan konsep event Anda dari perencanaan hingga eksekusi sempurna.",
+            "button_text": "Hubungi Kami Sekarang"
+        },
+        "main_headline": {
+            "title": "Ciptakan Event yang Berkesan dengan Custom Booth Exhibition & Kontraktor Event Terpercaya!",
+            "text": "Sebagai kontraktor event profesional, kami menghadirkan solusi lengkap untuk custom booth exhibition, custom backdrop, custom gate, dan custom photobooth yang dirancang khusus sesuai konsep acara Anda. Dari desain hingga instalasi, kami pastikan setiap detail event Anda tampil sempurna dan berkesan!",
+            "images": [
+                "assets\/uploads\/img_69970ce31123c.webp",
+                "assets\/slide-2.webp",
+                "assets\/slide-3.webp"
+            ]
+        }
+    },
+    "about_section": {
+        "title": "Tentang Kami",
+        "headline": "Kontraktor Event Profesional yang Mengutamakan Kualitas dan Detail",
+        "text": "Dengan pengalaman lebih dari 10 tahun sebagai kontraktor event dan vendor booth exhibition, kami memahami setiap detail yang membuat event Anda sukses. Kami tidak hanya menyediakan custom booth, backdrop, dan gate\u2014tetapi juga memberikan konsultasi desain, instalasi profesional, dan dukungan teknis penuh. Dari booth pameran eksklusif hingga custom photobooth yang Instagrammable, kami siap mewujudkan visi event Anda dengan sempurna!",
+        "image": "assets\/about-us.webp"
+    },
+    "services_section": {
+        "title": "Layanan Kami",
+        "headline": "Custom Booth Exhibition & Solusi Event Kontraktor yang Komprehensif",
+        "text": "Sebagai event vendor terpercaya, kami menyediakan layanan lengkap mulai dari custom booth exhibition, custom backdrop eksklusif, custom gate yang mewah, custom photobooth interaktif, hingga multimedia dan LED screen untuk berbagai kebutuhan event: pameran produk, konferensi internasional, wedding premium, hingga event korporat skala besar. Semua dikerjakan oleh tim kontraktor profesional dengan pengalaman puluhan tahun yang siap membantu dari konsep, desain, produksi, instalasi, hingga operasional\u2014sehingga event Anda tampil maksimal tanpa ribet!"
+    },
+    "features_section": {
+        "title": "Why Us?",
+        "headline": "Kenapa Memilih Kami? Berikut Keuntungan yang Anda Dapatkan",
+        "items": [
+            {
+                "icon": "fas fa-person-booth",
+                "title": "Kualitas Premium",
+                "text": "Semua perlengkapan kami terjamin berkualitas tinggi, dipilih dari brand terpercaya dan selalu terawat dengan baik."
+            },
+            {
+                "icon": "fas fa-truck-moving",
+                "title": "Pengiriman Tepat Waktu",
+                "text": "Kami mengerti betapa pentingnya waktu dalam event. Alat kami akan tiba di lokasi tepat waktu, siap digunakan tanpa ada keterlambatan."
+            },
+            {
+                "icon": "fas fa-hand-holding-usd",
+                "title": "Hemat Waktu dan Biaya",
+                "text": "Tidak perlu membeli alat mahal yang jarang digunakan. Dengan menyewa, Anda bisa lebih menghemat anggaran dan ruang penyimpanan."
+            },
+            {
+                "icon": "fas fa-headset",
+                "title": "Layanan Full Support",
+                "text": "Kami menyediakan layanan mulai dari konsultasi, pengiriman, instalasi, hingga pembongkaran alat setelah acara selesai."
+            }
+        ]
+    },
+    "products": [
+        {
+            "id": "led-screen",
+            "name": "LED Screen & Smart TV LED",
+            "description": "Sewa LED Screen berkualitas tinggi untuk acara perusahaan, konser, dan pernikahan dengan berbagai pilihan tipe.",
+            "image": "assets\/img\/products\/led-screen.webp"
+        },
+        {
+            "id": "multimedia",
+            "name": "Multimedia",
+            "description": "Layanan multimedia inovatif untuk konferensi, seminar, dan pameran dengan teknologi terkini.",
+            "image": "assets\/img\/products\/multimedia.webp"
+        },
+        {
+            "id": "custom-gate",
+            "name": "Custom Gate",
+            "description": "Gate custom yang sesuai dengan keinginan anda untuk berbagai keperluan, event Run, Expo, Festival dan lain sebagainya.",
+            "image": "assets\/img\/products\/gate.jpeg"
+        },
+        {
+            "id": "custom-backdrop",
+            "name": "Custom Backdrop",
+            "description": "Custom backdrop untuk konferensi, pameran, dan pernikahan dengan desain menarik dan bahan berkualitas.",
+            "image": "assets\/img\/products\/custom-backdrop.webp"
+        },
+        {
+            "id": "partisi-r8",
+            "name": "Partisi Pameran R8",
+            "description": "Sewa Partisi Pameran R8 untuk pameran dan konferensi, menciptakan ruang yang rapi dan profesional.",
+            "image": "assets\/img\/products\/partisi-r8.webp"
+        },
+        {
+            "id": "booth-custom",
+            "name": "Booth Pameran Custom",
+            "description": "Booth pameran custom untuk promosi dan presentasi, dirancang sesuai identitas merek dan tema acara.",
+            "image": "assets\/img\/products\/booth-pameran-custom.webp"
+        },
+        {
+            "id": "live-streaming",
+            "name": "Live Streaming",
+            "description": "Layanan Live Streaming profesional untuk konferensi dan pernikahan dengan kualitas gambar dan suara jernih.",
+            "image": "assets\/img\/products\/live-streaming.webp"
+        },
+        {
+            "id": "tenda",
+            "name": "Penyewaan Tenda",
+            "description": "Sewa tenda berkualitas tinggi untuk pernikahan, seminar, dan event outdoor, melindungi dari cuaca buruk.",
+            "image": "assets\/img\/products\/tenda.webp"
+        }
+    ],
+    "portfolio": {
+        "categories": {
+            "backdrop": "Custom Backdrop & Custom Photobooth",
+            "partisi": "Custom Exhibition Booth & Partisi R8",
+            "produksi": "Event Production",
+            "led": "Videotron & LED Screen",
+            "livestreaming": "Multimedia & Livestreaming",
+            "tv": "TV Plasma & Digital Signage"
+        },
+        "captions": {
+            "led": {
+                "ledartboard-1.webp": "Rapat Kerja Koni 2020",
+                "ledartboard-2.webp": "Sidang Tertutup Unhan",
+                "ledartboard-3.webp": "Town Hall DJPHU",
+                "ledartboard-4.webp": "MeTime Series",
+                "ledartboard-5.webp": "Milad HNI 2025",
+                "ledartboard-6.webp": "Makna&Co Series",
+                "ledartboard-7.webp": "Mandiri Public Expose 2025",
+                "ledartboard-8.webp": "LED Screen",
+                "ledartboard-9.webp": "Rapat Kerja",
+                "ledartboard-10.webp": "Wisuda UB",
+                "ledartboard-11.webp": "Beelieves Propolis",
+                "ledartboard-12.webp": "LED Screen",
+                "ledartboard-13.webp": "Hari AntiKorupsi 2022",
+                "ledartboard-14.webp": "Indonesia Visionary Leader"
+            },
+            "livestreaming": {
+                "liveartboard-1.webp": "Mandiri Public Expose 2025",
+                "liveartboard-2.webp": "Makna&Co Series",
+                "liveartboard-3.webp": "Wisuda Maskanul Huffadz",
+                "liveartboard-4.webp": "Livestream Set",
+                "liveartboard-5.webp": "SalamFest",
+                "liveartboard-6.webp": "Webinar HRN 2025",
+                "liveartboard-8.webp": "Jimmy Jib",
+                "liveartboard-9.webp": "MeTime Series"
+            },
+            "tv": {
+                "tvartboard-1.webp": "Matador Rapat Kerja",
+                "tvartboard-2.webp": "PLN 2025",
+                "tvartboard-3.webp": "TV Display",
+                "tvartboard-10.webp": "Digital Signage",
+                "tvartboard-4.webp": "TV Display",
+                "tvartboard-5.webp": "Sertijab KAI",
+                "tvartboard-11.webp": "Digital Signage",
+                "tvartboard-6.webp": "Birthday Party",
+                "tvartboard-12.webp": "Digital Signage",
+                "tvartboard-7.webp": "Stage Live Matador Timer",
+                "tvartboard-8.webp": "TV Display Sarulla",
+                "tvartboard-9.webp": "TV Display ORMAT",
+                "tvartboard-13.webp": "Digital Signage",
+                "tvartboard-14.webp": "Stage Live Matador Direct",
+                "tvartboard-15.webp": "Digital Signage PLN Like 2025"
+            },
+            "backdrop": {
+                "bgartboard-2.webp": "IKAHAN Golf Tournament 2025",
+                "bgartboard-3.webp": "Berlalri Bersama Teman Tuli 2025",
+                "bgartboard-4.webp": "Racepack Collection RFH Trail 2025",
+                "bgartboard-5.webp": "Rapimnas HIPELKI 2025",
+                "bgartboard-6.webp": "Press Conference RFH Trail 2025",
+                "bgartboard-8.webp": "Sprint Your Impact 2025",
+                "bgartboard-9.webp": "Demo Day Batch X",
+                "bgartboard-10.webp": "Binloop Ultra",
+                "bgartboard-11.webp": "Empower Run",
+                "bgartboard-12.webp": "HairCon Indonesia",
+                "bgartboard-13.webp": "Finisher Photobooth",
+                "bgartboard-14.webp": "Palestina Run",
+                "bgartboard-15.webp": "Retro Run",
+                "bgartboard-16.webp": "Run & Rise 2025",
+                "bgartboard-17.webp": "Walk of Dreams"
+            },
+            "partisi": {
+                "rartboard-1.webp": "Partisi R8",
+                "rartboard-2.webp": "Partisi R8",
+                "rartboard-3.webp": "Partisi R8",
+                "rartboard-4.webp": "Partisi R8",
+                "rartboard-5.webp": "Partisi R8",
+                "rartboard-6.webp": "Partisi R8",
+                "rartboard-7.webp": "Partisi R8",
+                "rartboard-8.webp": "Partisi R8",
+                "rartboard-9.webp": "Booth Exhibtion Run to Miles",
+                "rartboard-10.webp": "Booth Display QUPRO | AKSI",
+                "rartboard-11.webp": "Booth Exhibtion Wondr BNI",
+                "rartboard-12.webp": "Booth Exhibtion Panin Dubai",
+                "rartboard-13.webp": "Partisi R8",
+                "rartboard-14.webp": "Partisi R8",
+                "rartboard-15.webp": "Tenda 3x3",
+                "rartboard-16.webp": "Tenda 3x3",
+                "rartboard-17.webp": "Tenda 5x5 | 3x3 | 2x2",
+                "rartboard-18.webp": "Tenda"
+            },
+            "produksi": {
+                "pdartboard-1.webp": "Custom Gate RFH Solo",
+                "pdartboard-2.webp": "Custom Gate Maulid Fest",
+                "pdartboard-3.webp": "Custom Gate Run & Rise",
+                "pdartboard-4.webp": "Custom Gate Palestina Run",
+                "pdartboard-5.webp": "Custom Stage & Decoration Khadija Fest",
+                "pdartboard-6.jpg": "Birthday Setup"
+            }
+        }
+    }
+}

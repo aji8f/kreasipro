@@ -798,6 +798,133 @@
     }
 }
 
+/* --- MOBILE RESPONSIVE FIXES --- */
+@media (max-width: 768px) {
+
+    /* Typography */
+    .display-1 {
+        font-size: 2.5rem;
+    }
+
+    .display-3 {
+        font-size: 2rem;
+    }
+
+    .display-5 {
+        font-size: 1.75rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Layout */
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero-header {
+        padding-top: 120px;
+        padding-bottom: 60px;
+        text-align: center;
+    }
+
+    .hero-header img {
+        max-width: 80% !important;
+        margin: 0 auto;
+    }
+
+    /* Carousel / Portfolio */
+    .owl-carousel .owl-nav {
+        display: none !important;
+        /* Hide arrows on mobile to save space */
+    }
+
+    .portfolio-item .img-frame {
+        aspect-ratio: 16 / 9;
+        /* Wider on mobile */
+    }
+
+    /* Sections */
+    .py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    .my-5 {
+        margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
+    }
+
+    /* Navbar text */
+    .navbar-light .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- CLIENT IMAGE RESPONSIVE --- */
+.ourclient {
+    max-width: 100%;
+    height: auto;
+    width: 60%;
+    /* Default width on desktop */
+    min-width: 300px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .ourclient {
+        width: 100%;
+        /* Full width on mobile */
+        min-width: unset;
+    }
+}
+
+/* --- HERO CAROUSEL PORTRAIT-AWARE FRAME --- */
+.hero-img-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Blurred background fill for portrait images */
+.hero-img-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(18px) brightness(0.55);
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+/* The actual image */
+.hero-slide-img {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.hero-img-frame:hover .hero-slide-img {
+    transform: scale(1.03);
+}
+
 /*** Hero Header End ***/
 
 

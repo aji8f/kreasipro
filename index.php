@@ -34,11 +34,11 @@ $baseUrl = getSafeBaseUrl();
     <meta charset="utf-8">
     
     <!-- Primary Meta Tags -->
-    <title>Kontraktor Event & Kontraktor Booth Profesional | Kreasi Pro - Event Vendor Terpercaya</title>
-    <meta name="title" content="Kontraktor Event & Kontraktor Booth Profesional | Kreasi Pro - Event Vendor Terpercaya">
-    <meta name="description" content="Kreasi Pro adalah kontraktor event dan event vendor profesional yang menyediakan custom booth exhibition, sewa LED screen, videotron, multimedia, dan perlengkapan event lengkap. Layanan terpercaya untuk event production Anda.">
-    <meta name="keywords" content="kontraktor event, kontraktor booth, event vendor, custom booth exhibition, sewa alat event, sewa LED screen, kontraktor exhibition booth, event production, booth exhibition, sewa videotron, sewa TV plasma, sewa multimedia, kontraktor pameran, booth pameran, event organizer, sewa backdrop, sewa partisi, sewa peralatan event, jasa event, vendor event jakarta">
-    <meta name="author" content="Kreasi Pro Official">
+    <title><?= escapeHtml($siteSettings['title']) ?></title>
+    <meta name="title" content="<?= escapeHtml($siteSettings['title']) ?>">
+    <meta name="description" content="<?= escapeHtml($siteSettings['description']) ?>">
+    <meta name="keywords" content="<?= escapeHtml($siteSettings['keywords']) ?>">
+    <meta name="author" content="<?= escapeHtml($siteSettings['author']) ?>">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="canonical" href="<?= escapeUrl($baseUrl) ?>/">
@@ -201,8 +201,8 @@ $baseUrl = getSafeBaseUrl();
       "@context": "https://schema.org",
       "@type": "WebSite",
       "url": "<?= escapeJs($baseUrl) ?>/",
-      "name": "Kreasi Pro - Kontraktor Event & Booth",
-      "description": "Event vendor profesional untuk custom booth exhibition dan sewa perlengkapan event",
+      "name": "<?= escapeJs($siteSettings['title']) ?>",
+      "description": "<?= escapeJs($siteSettings['description']) ?>",
       "publisher": {
         "@type": "Organization",
         "name": "Kreasi Pro",
@@ -250,7 +250,10 @@ $baseUrl = getSafeBaseUrl();
                         <a href="#service" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Layanan</a>
                         <div class="dropdown-menu m-0">
                             <?php foreach ($products as $product) : ?>
-                                <a href="#service-<?= str_replace(' ', '', escapeHtml($product['name'])); ?>" class="dropdown-item" onclick="activeService(this)"><?= escapeHtml($product['name']); ?></a>
+                                <?php 
+                                    $pId = isset($product['id']) ? $product['id'] : str_replace(' ', '', $product['name']);
+                                ?>
+                                <a href="#service-<?= escapeAttr($pId); ?>" class="dropdown-item" onclick="activeService(this)"><?= escapeHtml($product['name']); ?></a>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -264,9 +267,9 @@ $baseUrl = getSafeBaseUrl();
         <div class="container-fluid feature overflow-hidden py-md-4 py-2 bg-dark text-white with-bg-image headline-container" id="sub-headline">
             <div class="container py-5">
                 <div class="text-center mx-auto mb-0 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
-                    <h1 class="display-5 mb-md-5 mb-3 text-white">Kontraktor Event & Custom Booth Exhibition Profesional - Wujudkan Event Impian Anda Bersama Kami!</h1>
-                    <p class="mb-4 fs-5">Spesialis custom booth exhibition, custom backdrop, custom gate, dan custom photobooth untuk pameran, konferensi, wedding, hingga event berskala besar. Kami siap mewujudkan konsep event Anda dari perencanaan hingga eksekusi sempurna.</p>
-                    <a href="<?= escapeUrl($buttonWhatsapp); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary rounded-pill py-3 wow fadeInUp" data-wow-delay="0.7s">Hubungi Kami Sekarang</a>
+                    <h1 class="display-5 mb-md-5 mb-3 text-white"><?= escapeHtml($heroSection['sub_headline']['title']) ?></h1>
+                    <p class="mb-4 fs-5"><?= escapeHtml($heroSection['sub_headline']['text']) ?></p>
+                    <a href="<?= escapeUrl($buttonWhatsapp); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary rounded-pill py-3 wow fadeInUp" data-wow-delay="0.7s"><?= escapeHtml($heroSection['sub_headline']['button_text']) ?></a>
                 </div>
             </div>
         </div>
@@ -283,20 +286,30 @@ $baseUrl = getSafeBaseUrl();
                     <div class="col-lg-7 wow fadeInRight" data-wow-delay="0.2s">
                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                <?php 
+                                    $slideCount = count($heroSection['main_headline']['images']);
+                                    for($i = 0; $i < $slideCount; $i++): 
+                                ?>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $i ?>" class="<?= $i === 0 ? 'active' : '' ?>" aria-current="<?= $i === 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $i+1 ?>"></button>
+                                <?php endfor; ?>
                             </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="assets/slide-1.webp" class="d-block w-100 border-radius" alt="Event Slide 1" loading="lazy">
+                            <div class="carousel-inner" style="border-radius: 12px; overflow: hidden;">
+                                <?php foreach($heroSection['main_headline']['images'] as $index => $imgData): ?>
+                                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                                    <?php 
+                                        $absImg = escapeUrl($baseUrl . '/' . $imgData);
+                                        $altText = 'Kreasi Pro Event Slide ' . ($index + 1);
+                                    ?>
+                                    <a href="<?= $absImg ?>" class="popup-image d-block" title="<?= $altText ?>">
+                                        <div class="hero-img-frame" style="--bg: url('<?= $absImg ?>')">
+                                            <img src="<?= $absImg ?>"
+                                                 alt="<?= $altText ?>"
+                                                 class="hero-slide-img"
+                                                 loading="<?= $index === 0 ? 'eager' : 'lazy' ?>">
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="assets/slide-2.webp" class="d-block w-100 border-radius" alt="Event Slide 2" loading="lazy">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="assets/slide-3.webp" class="d-block w-100 border-radius" alt="Event Slide 3" loading="lazy">
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -309,8 +322,8 @@ $baseUrl = getSafeBaseUrl();
                         </div>
                     </div>
                     <div class="col-lg-5 wow fadeInLeft mt-2" data-wow-delay="0.1s">
-                        <h1 class="display-4 text-dark mb-2 mb-md-4 wow fadeInUp fs-1" data-wow-delay="0.3s">Ciptakan Event yang Berkesan dengan Custom Booth Exhibition & Kontraktor Event Terpercaya!</h1>
-                        <p class="fs-5 mb-4 wow fadeInUp sub-headline-text" data-wow-delay="0.5s">Sebagai kontraktor event profesional, kami menghadirkan solusi lengkap untuk custom booth exhibition, custom backdrop, custom gate, dan custom photobooth yang dirancang khusus sesuai konsep acara Anda. Dari desain hingga instalasi, kami pastikan setiap detail event Anda tampil sempurna dan berkesan!</p>
+                        <h1 class="display-4 text-dark mb-2 mb-md-4 wow fadeInUp fs-1" data-wow-delay="0.3s"><?= escapeHtml($heroSection['main_headline']['title']) ?></h1>
+                        <p class="fs-5 mb-4 wow fadeInUp sub-headline-text" data-wow-delay="0.5s"><?= escapeHtml($heroSection['main_headline']['text']) ?></p>
                     </div>
                 </div>
             </div>
@@ -325,13 +338,13 @@ $baseUrl = getSafeBaseUrl();
             <div class="row">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="">
-                        <img src="assets/about-us.webp" class="img-fluid w-100 rounded" alt="Tentang Kreasi Pro" loading="lazy">
+                        <img src="<?= escapeUrl($aboutSection['image']) ?>" class="img-fluid w-100 rounded" alt="Tentang Kreasi Pro" loading="lazy">
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <h4 class="mb-1 text-primary">Tentang Kami</h4>
-                    <h1 class="display-5 mb-4">Kontraktor Event Profesional yang Mengutamakan Kualitas dan Detail</h1>
-                    <p class="mb-4">Dengan pengalaman lebih dari 10 tahun sebagai kontraktor event dan vendor booth exhibition, kami memahami setiap detail yang membuat event Anda sukses. Kami tidak hanya menyediakan custom booth, backdrop, dan gate—tetapi juga memberikan konsultasi desain, instalasi profesional, dan dukungan teknis penuh. Dari booth pameran eksklusif hingga custom photobooth yang Instagrammable, kami siap mewujudkan visi event Anda dengan sempurna!</p>
+                    <h4 class="mb-1 text-primary"><?= escapeHtml($aboutSection['title']) ?></h4>
+                    <h1 class="display-5 mb-4"><?= escapeHtml($aboutSection['headline']) ?></h1>
+                    <p class="mb-4"><?= escapeHtml($aboutSection['text']) ?></p>
                 </div>
             </div>
         </div>
@@ -342,9 +355,9 @@ $baseUrl = getSafeBaseUrl();
     <div class="container-fluid service py-md-4 py-2" id="service">
         <div class="container py-5">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
-                <h4 class="mb-1 text-primary">Layanan Kami</h4>
-                <h1 class="display-5 mb-4">Custom Booth Exhibition & Solusi Event Kontraktor yang Komprehensif</h1>
-                <p class="mb-0">Sebagai event vendor terpercaya, kami menyediakan layanan lengkap mulai dari custom booth exhibition, custom backdrop eksklusif, custom gate yang mewah, custom photobooth interaktif, hingga multimedia dan LED screen untuk berbagai kebutuhan event: pameran produk, konferensi internasional, wedding premium, hingga event korporat skala besar. Semua dikerjakan oleh tim kontraktor profesional dengan pengalaman puluhan tahun yang siap membantu dari konsep, desain, produksi, instalasi, hingga operasional—sehingga event Anda tampil maksimal tanpa ribet!</p>
+                <h4 class="mb-1 text-primary"><?= escapeHtml($servicesSection['title']) ?></h4>
+                <h1 class="display-5 mb-4"><?= escapeHtml($servicesSection['headline']) ?></h1>
+                <p class="mb-0"><?= escapeHtml($servicesSection['text']) ?></p>
             </div>
             <div class="row g-4 justify-content-center">
                 <?php foreach ($products as $product) : ?>
@@ -359,64 +372,21 @@ $baseUrl = getSafeBaseUrl();
     <div class="container-fluid feature overflow-hidden py-5">
         <div class="container py-5">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                <h4 class="text-primary">Why Us?</h4>
-                <h1 class="display-5 mb-4">Kenapa Memilih Kami? Berikut Keuntungan yang Anda Dapatkan</h1>
+                <h4 class="text-primary"><?= escapeHtml($featuresSection['title']) ?></h4>
+                <h1 class="display-5 mb-4"><?= escapeHtml($featuresSection['headline']) ?></h1>
             </div>
-            <div class="row justify-content-center text-center mb-5">
-                <div class="col-md-6 col-lg-4 col-12 wow fadeInUp box-benefit" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+            <div class="row justify-content-center text-center mb-5 g-4">
+                <?php foreach($featuresSection['items'] as $index => $item): ?>
+                <div class="col-md-6 col-lg-4 col-12 wow fadeInUp box-benefit" data-wow-delay="<?= 0.1 + ($index * 0.2) ?>s">
                     <div class="text-center">
-                        <div class="d-inline-block rounded bg-light p-4 mb-4"><i class="fas fa-person-booth fa-5x text-secondary"></i></div>
+                        <div class="d-inline-block rounded bg-light p-4 mb-4"><i class="<?= escapeAttr($item['icon']) ?> fa-5x text-secondary"></i></div>
                         <div class="feature-content">
-                            <h4 class="h4">Kualitas Premium </h4>
-                            <p class="mt-2 mb-0">Semua perlengkapan kami terjamin berkualitas tinggi, dipilih dari brand terpercaya dan selalu terawat dengan baik.</p>
+                            <h4 class="h4"><?= escapeHtml($item['title']) ?></h4>
+                            <p class="mt-2 mb-0"><?= escapeHtml($item['text']) ?></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 col-12 wow fadeInUp box-benefit" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                    <div class="text-center">
-                        <div class="d-inline-block rounded bg-light p-4 mb-4"><i class="fas fa-truck-moving fa-5x text-secondary"></i></div>
-                        <div class="feature-content">
-                            <h4 class="h4">Pengiriman Tepat Waktu </h4>
-                            <p class="mt-2 mb-0">Kami mengerti betapa pentingnya waktu dalam event. Alat kami akan tiba di lokasi tepat waktu, siap digunakan tanpa ada keterlambatan.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-12 wow fadeInUp box-benefit" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                    <div class="text-center">
-                        <div class="d-inline-block rounded bg-light p-4 mb-4"><i class="fas fa-hand-holding-usd fa-5x text-secondary"></i></div>
-                        <div class="feature-content">
-                            <h4 class="h4">Hemat Waktu dan Biaya </h4>
-                            <p class="mt-2 mb-0">Tidak perlu membeli alat mahal yang jarang digunakan. Dengan menyewa, Anda bisa lebih menghemat anggaran dan ruang penyimpanan.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-12 wow fadeInUp box-benefit" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-                    <div class="text-center">
-                        <div class="d-inline-block rounded bg-light p-4 mb-4"><i class="fas fa-headset fa-5x text-secondary"></i></div>
-                        <div class="feature-content">
-                            <h4 class="h4">Layanan Full Support </h4>
-                            <p class="mt-2 mb-0">Kami menyediakan layanan mulai dari konsultasi, pengiriman, instalasi, hingga pembongkaran alat setelah acara selesai.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-12 wow fadeInUp box-benefit" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-                    <div class="text-center rounded">
-                        <div class="d-inline-block rounded bg-light p-4 mb-4"><i class="fas fa-sitemap fa-5x text-secondary"></i></div>
-                        <div class="feature-content">
-                            <h4 class="h4">Fleksibilitas </h4>
-                            <p class="mt-2 mb-0">Kami menawarkan berbagai pilihan paket yang dapat disesuaikan dengan jenis acara dan anggaran Anda.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-12 wow fadeInUp box-benefit" data-wow-delay="0.7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
-                    <div class="text-center rounded">
-                        <div class="d-inline-block rounded bg-light p-4 mb-4"><i class="fas fa-chalkboard-teacher fa-5x text-secondary"></i></div>
-                        <div class="feature-content">
-                            <h4 class="h4">Tampilan Profesional </h4>
-                            <p class="mt-2 mb-0">Semua perlengkapan kami dirancang untuk meningkatkan tampilan dan pengalaman event Anda, menciptakan kesan yang tidak terlupakan bagi pengunjung.</p>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
                 <h4>Siap Sukseskan Event Anda? Hubungi Kami untuk Menyewa Alat Terbaik!</h4>
@@ -634,33 +604,39 @@ $baseUrl = getSafeBaseUrl();
         </div>
 
         <?php
-        foreach ($categories as $title => $folder) {
-            // Sanitize folder name to prevent path traversal
-            $folder = sanitizeFilename($folder);
+        foreach ($categories as $id => $title) {
+            // ID is the folder name (e.g. 'led', 'backdrop')
+            $folder = sanitizeFilename($id);
             $path = "assets/img/porto/$folder/";
             
-            // Validate path exists and is within allowed directory
+            // Validate path exists
             if (!is_dir($path)) {
                 continue;
             }
             
+            // Get all images
             $images = glob($path . "*.{jpg,jpeg,png,webp}", GLOB_BRACE);
 
             if (count($images) > 0) {
                 echo '<div class="portfolio-category mb-5 wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">';
-                echo '<h3 class="text-center mb-4 text-uppercase text-primary fw-bold">' . escapeHtml($title) . '</h3>';
+                echo '<h3 class="text-center mb-4 text-uppercase text-primary fw-bold">' . escapeHtml($title) . '</h3>'; // Title is the Display Name
                 echo '<div class="owl-carousel owl-theme portfolio-item">';
                 
                 foreach ($images as $imgPath) {
                     $filename = basename($imgPath);
-                    $caption = isset($captions[$folder][$filename]) ? $captions[$folder][$filename] : '';
+                    // Check caption using ID as key
+                    $caption = isset($captions[$id][$filename]) ? $captions[$id][$filename] : '';
+                    
+                    // Clean up filename for alt text if caption missing
+                    $altText = $caption ?: ucwords(str_replace(['-', '_', '.webp', '.jpg'], [' ', ' ', '', ''], $filename));
+                    
                     $absolutePath = escapeUrl($baseUrl . '/' . $imgPath);
 
                     echo '<div class="item text-center p-2">';
                     echo '<figure>';
                     echo '<div class="img-frame" style="--bg:url(\'' . $absolutePath . '\')">';
                     echo '<a href="' . $absolutePath . '" class="popup-image" title="' . escapeAttr($caption) . '">';
-                    echo '<img src="' . $absolutePath . '" alt="' . escapeAttr($caption ?: $filename) . '" loading="lazy">';
+                    echo '<img src="' . $absolutePath . '" alt="' . escapeAttr($altText) . '" loading="lazy">';
                     echo '</a>';
                     echo '</div>';
                     if ($caption) echo '<figcaption>' . escapeHtml($caption) . '</figcaption>';
@@ -748,7 +724,7 @@ $baseUrl = getSafeBaseUrl();
 
     <!-- Testimonial Start -->
     <div class="container-fluid testimonial py-md-4 py-2">
-            <img src='assets\Tentang Kreasipro.jpg' class='ourclient' alt='Klien Kreasi Pro' loading="lazy">
+            <img src="assets/Tentang Kreasipro.jpg" class="ourclient img-fluid d-block mx-auto rounded shadow-sm" alt="Klien Kreasi Pro" loading="lazy">
     </div>
     <!-- Testimonial End -->
 
@@ -840,6 +816,30 @@ $baseUrl = getSafeBaseUrl();
                 gallery: {
                     enabled: true
                 }
+            });
+
+            // Hero carousel & portfolio click-to-enlarge
+            $('.carousel').each(function() {
+                $(this).find('.popup-image').magnificPopup({
+                    type: 'image',
+                    gallery: { enabled: true },
+                    image: { titleSrc: 'title' },
+                    mainClass: 'mfp-with-zoom',
+                    zoom: {
+                        enabled: true,
+                        duration: 300,
+                        easing: 'ease-in-out'
+                    }
+                });
+            });
+
+            // Portfolio gallery popup
+            $('.portfolio-category').each(function() {
+                $(this).find('.popup-image').magnificPopup({
+                    type: 'image',
+                    gallery: { enabled: true },
+                    image: { titleSrc: 'title' }
+                });
             });
         });
 

@@ -1,11 +1,5 @@
 # Security Configuration for Kreasi Pro
-# Apache .htaccess file
-
-# Enable RewriteEngine
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
-</IfModule>
+# Apache .htaccess — supports Apache 2.2 and 2.4
 
 # ============================================
 # URL Rewriting
@@ -13,11 +7,15 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
-    
+
     # Serve sitemap.xml dynamically
     RewriteRule ^sitemap\.xml$ sitemap.xml.php [L]
-    
-    # Redirect www to non-www (optional)
+
+    # Force HTTPS (uncomment on VPS with SSL)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # Redirect www to non-www (uncomment if needed)
     # RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 </IfModule>
@@ -25,31 +23,24 @@
 # ============================================
 # Security Headers
 # ============================================
-
 <IfModule mod_headers.c>
-    # Prevent clickjacking attacks
     Header always set X-Frame-Options "SAMEORIGIN"
-    
-    # Prevent MIME type sniffing
     Header always set X-Content-Type-Options "nosniff"
-    
-    # Enable XSS protection in browsers
     Header always set X-XSS-Protection "1; mode=block"
-    
-    # Referrer Policy
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    
-    # Remove server signature
+    Header always set X-Permitted-Cross-Domain-Policies "none"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+    # Remove server fingerprinting headers
     Header unset Server
     Header unset X-Powered-By
-    
-    # HSTS (HTTP Strict Transport Security) - Only enable if using HTTPS
-    # Uncomment the line below if your site uses HTTPS
-    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # HSTS — only fires when request is already HTTPS (safe for VPS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
 </IfModule>
 
 # ============================================
-# Disable Directory Listing
+# Directory Listing — Disabled
 # ============================================
 Options -Indexes
 
@@ -57,105 +48,103 @@ Options -Indexes
 # File Access Restrictions
 # ============================================
 
-# Protect config files
-<FilesMatch "^(config\.php|security\.php)$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-
-# Protect .htaccess and .htpasswd
+# Protect .htaccess and .htpasswd files
 <FilesMatch "^\.ht">
-    Order allow,deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
-# Protect backup files
-<FilesMatch "\.(bak|backup|old|orig|save|swp)$">
-    Order allow,deny
-    Deny from all
+# Block backup / swap / editor temp files
+<FilesMatch "\.(bak|backup|old|orig|save|swp|sql|dump)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
-# Protect log files
+# Block log files
 <FilesMatch "\.log$">
-    Order allow,deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
-# ============================================
-# Block Documentation Files (Internal Only)
-# ============================================
-
-# Block all .md files (internal documentation)
+# Block internal documentation
 <FilesMatch "\.(md|MD)$">
-    Order allow,deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
-# If you want to allow specific .md files for public access, add exceptions:
-# <Files "PUBLIC_README.md">
-#     Allow from all
-# </Files>
-
-# ============================================
-# Block Test Files
-# ============================================
-
-# Block all test files
-<FilesMatch "^test_">
-    Order allow,deny
-    Deny from all
+# Block development / test files
+<FilesMatch "(^test_|copy|temp|tmp|dev|local)\.php$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
-# Specific test file (redundant but explicit)
-<Files "test_security.php">
-    Order allow,deny
-    Deny from all
-</Files>
-
-# ============================================
-# Block Development/Copy Files
-# ============================================
-
-# Block files with copy, temp, tmp, dev, local in name
-<FilesMatch "(copy|temp|tmp|dev|local)\.php$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-
-# Block specific development files
+# Block specific dev files
 <Files "index copy.php">
-    Order allow,deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </Files>
 
 # ============================================
 # PHP Security Settings
 # ============================================
-
 <IfModule mod_php7.c>
-    # Disable dangerous PHP functions (if not already disabled in php.ini)
     php_flag display_errors Off
     php_flag log_errors On
     php_flag expose_php Off
-    
-    # File upload restrictions
     php_value upload_max_filesize 10M
     php_value post_max_size 10M
-    
-    # Session security
     php_flag session.cookie_httponly On
+    php_flag session.cookie_samesite Strict
     php_flag session.use_strict_mode On
+    php_flag session.use_only_cookies On
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_flag expose_php Off
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_flag session.cookie_httponly On
+    php_flag session.cookie_samesite Strict
+    php_flag session.use_strict_mode On
+    php_flag session.use_only_cookies On
 </IfModule>
 
 # ============================================
 # MIME Type Security
 # ============================================
-
 <IfModule mod_mime.c>
-    # Force download for potentially dangerous files
     AddType application/octet-stream .exe .dll .bat .sh
-    
-    # Proper MIME types for common files
     AddType text/html .html .htm
     AddType text/css .css
     AddType application/javascript .js
@@ -163,45 +152,37 @@ Options -Indexes
     AddType image/png .png
     AddType image/gif .gif
     AddType image/webp .webp
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
 </IfModule>
 
 # ============================================
-# Compression (Optional - for performance)
+# Compression (Performance)
 # ============================================
-
 <IfModule mod_deflate.c>
-    # Compress HTML, CSS, JavaScript, Text, XML
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
     AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml font/woff2 font/woff
 </IfModule>
 
 # ============================================
-# Browser Caching (Optional - for performance)
+# Browser Caching (Performance)
 # ============================================
-
 <IfModule mod_expires.c>
     ExpiresActive On
-    
-    # Images
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/gif "access plus 1 year"
-    ExpiresByType image/webp "access plus 1 year"
-    
-    # CSS and JavaScript
-    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType image/jpeg    "access plus 1 year"
+    ExpiresByType image/png     "access plus 1 year"
+    ExpiresByType image/gif     "access plus 1 year"
+    ExpiresByType image/webp    "access plus 1 year"
+    ExpiresByType text/css      "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
-    
-    # Fonts
-    ExpiresByType font/woff2 "access plus 1 year"
-    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2    "access plus 1 year"
+    ExpiresByType font/woff     "access plus 1 year"
 </IfModule>
 
 # ============================================
-# Error Pages (Optional)
+# Error Pages
 # ============================================
-
-# Custom error pages - uncomment and create these files if needed
 # ErrorDocument 404 /404.html
 # ErrorDocument 403 /403.html
 # ErrorDocument 500 /500.html
