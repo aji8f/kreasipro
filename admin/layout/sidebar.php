@@ -51,6 +51,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <span>SEO & Contact</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="reset_password.php" class="nav-link <?= $currentPage == 'reset_password.php' ? 'active' : '' ?>">
+                <i class="fas fa-key"></i>
+                <span>Reset Password</span>
+            </a>
+        </li>
         <li class="nav-item mt-4">
             <a href="logout.php" class="nav-link text-danger">
                 <i class="fas fa-sign-out-alt"></i>

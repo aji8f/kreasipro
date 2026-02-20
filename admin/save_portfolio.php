@@ -27,10 +27,14 @@ $dataFile = __DIR__ . '/../data/content.json';
 $data = json_decode(file_get_contents($dataFile), true);
 $action = $_POST['action'] ?? '';
 
-// Backup before save
-$backupFile = __DIR__ . '/../data/backups/content_' . date('Y-m-d_H-i-s') . '.json';
-if (!is_dir(dirname($backupFile))) mkdir(dirname($backupFile), 0755, true);
-copy($dataFile, $backupFile);
+// Backup with rotation (keep last 5, same pattern as save.php)
+$backupFile = __DIR__ . '/../data/content_' . date('Y-m-d_H-i-s') . '.json';
+file_put_contents($backupFile, file_get_contents($dataFile));
+$backups = glob(__DIR__ . '/../data/content_*.json');
+if ($backups && count($backups) > 5) {
+    sort($backups);
+    foreach (array_slice($backups, 0, count($backups) - 5) as $old) { @unlink($old); }
+}
 
 try {
     switch ($action) {
@@ -123,19 +127,49 @@ try {
                 throw new Exception("Image upload failed.");
             }
 
-            $allowed = ['image/jpeg', 'image/png', 'image/webp'];
+            $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
             $finfo = new finfo(FILEINFO_MIME_TYPE);
             $mime = $finfo->file($_FILES['image']['tmp_name']);
             if (!in_array($mime, $allowed)) throw new Exception("Invalid file type.");
 
-            $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-            $filename = uniqid('img_') . '.' . $ext;
+            $basename  = uniqid('img_');
+            $ext       = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $tmpName   = $basename . '.' . $ext;
+            $webpName  = $basename . '.webp';
             $targetDir = __DIR__ . '/../assets/img/porto/' . $folderId;
-            
+
             if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
 
-            if (!move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . '/' . $filename)) {
+            $tmpPath  = $targetDir . '/' . $tmpName;
+            $webpPath = $targetDir . '/' . $webpName;
+
+            if (!move_uploaded_file($_FILES['image']['tmp_name'], $tmpPath)) {
                 throw new Exception("Failed to save file.");
+            }
+
+            // Convert to WebP
+            $filename = $webpName; // Default to webp filename
+            if (function_exists('imagewebp')) {
+                $img = null;
+                switch ($mime) {
+                    case 'image/jpeg': $img = imagecreatefromjpeg($tmpPath); break;
+                    case 'image/png':
+                        $img = imagecreatefrompng($tmpPath);
+                        imagepalettetotruecolor($img);
+                        imagesavealpha($img, true);
+                        break;
+                    case 'image/gif':  $img = imagecreatefromgif($tmpPath);  break;
+                    case 'image/webp': $img = imagecreatefromwebp($tmpPath); break;
+                }
+                if ($img && imagewebp($img, $webpPath, 85)) {
+                    imagedestroy($img);
+                    @unlink($tmpPath);
+                } else {
+                    // Fallback: rename as webp
+                    rename($tmpPath, $webpPath);
+                }
+            } else {
+                rename($tmpPath, $webpPath);
             }
 
             // Init caption

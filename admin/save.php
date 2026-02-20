@@ -101,14 +101,14 @@ try {
             if (isset($_POST['icon'])) $data['site_settings']['icon'] = sanitizeInput($_POST['icon']);
             
             $data['contact_info']['whatsapp'] = sanitizeInput($_POST['whatsapp']);
-            $data['contact_info']['email'] = sanitizeInput($_POST['email']);
-            $data['contact_info']['address'] = sanitizeInput($_POST['address']);
-            $data['contact_info']['maps_link'] = $_POST['maps_link']; // Allow URL
-            
-            $data['social_media']['instagram'] = $_POST['instagram'];
-            $data['social_media']['youtube'] = $_POST['youtube'];
-            $data['social_media']['facebook'] = $_POST['facebook'];
-            $data['social_media']['tiktok'] = $_POST['tiktok'];
+            $data['contact_info']['email']     = sanitizeInput($_POST['email']);
+            $data['contact_info']['address']   = sanitizeInput($_POST['address']);
+            $data['contact_info']['maps_link']  = sanitizeInput($_POST['maps_link']);
+
+            $data['social_media']['instagram'] = sanitizeInput($_POST['instagram']);
+            $data['social_media']['youtube']   = sanitizeInput($_POST['youtube']);
+            $data['social_media']['facebook']  = sanitizeInput($_POST['facebook']);
+            $data['social_media']['tiktok']    = sanitizeInput($_POST['tiktok']);
             break;
             
         case 'services':
